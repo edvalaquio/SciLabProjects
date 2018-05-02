@@ -13,8 +13,9 @@ function matrix = computeMatrix(mat)
 	matrix = mat
 endfunction
 
-function piece = generatePieceWise(a, b, c, d, len)
+function piece = generatePieceWise(a, b, c, d, x, len)
 	piece = []
+	disp(x);
 	disp(a);
 	disp(b);
 	for i = 1:1:len
@@ -23,9 +24,13 @@ function piece = generatePieceWise(a, b, c, d, len)
 		// strC = string(c(i)) + string(i-1) + "(x-x" + string(i-1) + ")^2"
 		// strD = string(d(i)) + string(i-1) + "(x-x" + string(i-1) + ")^3"
 		strA = string(a(i))
-		strB = string(b(i)) + "(x-x" + string(i-1) + ")"
-		strC = string(c(i)) + "(x-x" + string(i-1) + ")^2"
-		strD = string(d(i)) + "(x-x" + string(i-1) + ")^3"
+		strB = string(b(i)) + "(x-" + string(x(i,:)) + ")"
+		strC = string(c(i)) + "(x-" + string(x(i,:)) + ")^2"
+		strD = string(d(i)) + "(x-" + string(x(i,:)) + ")^3"
+		// strA = string(a(i))
+		// strB = string(b(i)) + "(x-x" + string(i-1) + ")"
+		// strC = string(c(i)) + "(x-x" + string(i-1) + ")^2"
+		// strD = string(d(i)) + "(x-x" + string(i-1) + ")^3"
 		piece(i,:) = strA + " + " + strB + " + " + strC + " + " + strD
 	end
 endfunction
@@ -77,8 +82,8 @@ function clamped = computeCubicClamped(mat, h)
 	v($) = yTemp
 
 	A(1:n(1), 1:n(1)) = zeros()
-	A(1, 1:2) = [(2 * h(1)) h(2)]
-	A($, ($-1):$) = [h($-1) (2 * h($))]
+	A(1, 1:2) = [(2 * h(1)) h(1)]
+	A($, ($-1):$) = [h($) (2 * h($))]
 
 	space = 1
 	for i = 2:1:(n(1)-1)
@@ -92,7 +97,7 @@ function clamped = computeCubicClamped(mat, h)
 		end
 		space = space + 1
 	end
-
+	disp(A)
 	clamped = [A v]
 endfunction
 
@@ -104,6 +109,8 @@ function cubic = computeCubic(mat, isFree)
 	else
 		Av = computeCubicClamped(mat, h)
 	end
+
+	// disp(A)
 
 	linMat = computeMatrix(Av)
 	disp(linMat);
@@ -120,8 +127,8 @@ function cubic = computeCubic(mat, isFree)
 		dTemp = (c(i+1) - c(i))/(3 * h(i))
 		d(1, i) = dTemp
 	end
-
-	cubic = generatePieceWise(a, b, c, d, n(1)-1)
+	// disp(mat(:, 1))
+	cubic = generatePieceWise(a, b, c, d, mat(:,1) ,n(1)-1)
 
 endfunction
 
