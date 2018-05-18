@@ -63,12 +63,19 @@ function converted = double_precision(number)
 		dig_f = ibin2dec(dig_f)
 
 
-		converted = (-1)^dig_s * (2^(dig_e-1023)) * (1+dig_f)
+		dig_e = 2^(dig_e-1023)
+		disp(dig_e)
+
+		converted = (-1)^dig_s * dig_e * (1+dig_f)
 	end
 
 endfunction
 
-num = 2^-800
+// num = 2^-800
+num = "0000110111110000000000000000000000000000000000000000000000000000"
 answer = double_precision(num)
-disp(answer)
+disp(answer);
 disp(double_precision(answer))
+
+clear
+

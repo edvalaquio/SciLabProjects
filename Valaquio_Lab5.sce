@@ -32,11 +32,14 @@ function h = computeH(a, b, n)
 endfunction
 
 function f = func(x)
-	f = (x^3) - 4
+	// f = (x^3) - 4
+	f = (x .^ 2) - 2
 endfunction
 
+
 function integ = integral(x)
-	integ = (x^4)/4 - (4 * x)
+	integ = (x .^ 3)/3 - (2 * x)
+	// integ = (x^4)/4 - (4 * x)
 endfunction
 
 a = 0

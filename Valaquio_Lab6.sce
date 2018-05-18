@@ -1,9 +1,9 @@
 function f = func(x)
-	f = (2 * x) + 1
+	f = (x .^ 2) - 2
 endfunction
 
 function integ = integral(x)
-	integ = (x.^2) + x
+	integ = (x .^ 3)/3 - (2 * x)
 endfunction
 
 function euler = eulerMethod(x, y)
@@ -45,7 +45,7 @@ function midPoint = midPointMethod(x, y)
 
 endfunction
 
-function order = rungeKutta(x, y)
+function order = fourthOrder(x, y)
 
 	yValues = []
 	yValues(:,1) = y
@@ -66,15 +66,15 @@ n = 4
 xInput = 0
 yInput = 0
 xValues = 0:h:(xInput+(n*h))
-disp(xValues);
 actualY = []
 actualY = integral(xValues)
 
 
+temp = eulerMethod
 plot2d(xValues, actualY, 1)
-plot2d(xValues, eulerMethod(xInput, yInput), 2)
-plot2d(xValues, modEulerMethod(xInput, yInput), -3)
-plot2d(xValues, midPointMethod(xInput, yInput), -4)
-plot2d(xValues, rungeKutta(xInput, yInput), -5)
+plot2d(xValues, temp(xInput, yInput), 2)
+plot2d(xValues, modEulerMethod(xInput, yInput), 0)
+plot2d(xValues, midPointMethod(xInput, yInput), 0)
+plot2d(xValues, fourthOrder(xInput, yInput), 0)
 
 clear

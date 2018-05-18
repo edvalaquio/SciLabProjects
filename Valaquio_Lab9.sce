@@ -19,18 +19,10 @@ function piece = generatePieceWise(a, b, c, d, x, len)
 	disp(a);
 	disp(b);
 	for i = 1:1:len
-		// strA = string(a(i)) + string(i-1)
-		// strB = string(b(i)) + string(i-1) + "(x-x" + string(i-1) + ")"
-		// strC = string(c(i)) + string(i-1) + "(x-x" + string(i-1) + ")^2"
-		// strD = string(d(i)) + string(i-1) + "(x-x" + string(i-1) + ")^3"
 		strA = string(a(i))
 		strB = string(b(i)) + "(x-" + string(x(i,:)) + ")"
 		strC = string(c(i)) + "(x-" + string(x(i,:)) + ")^2"
 		strD = string(d(i)) + "(x-" + string(x(i,:)) + ")^3"
-		// strA = string(a(i))
-		// strB = string(b(i)) + "(x-x" + string(i-1) + ")"
-		// strC = string(c(i)) + "(x-x" + string(i-1) + ")^2"
-		// strD = string(d(i)) + "(x-x" + string(i-1) + ")^3"
 		piece(i,:) = strA + " + " + strB + " + " + strC + " + " + strD
 	end
 endfunction
@@ -110,8 +102,7 @@ function cubic = computeCubic(mat, isFree)
 		Av = computeCubicClamped(mat, h)
 	end
 
-	// disp(A)
-
+	disp(Av);
 	linMat = computeMatrix(Av)
 	disp(linMat);
 
@@ -143,6 +134,6 @@ given = [
 	2 5
 	3 8
 ]
-
-disp(computeCubic(given, %T))
+funcprot(0)
+disp(computeCubic(given, %F))
 clear

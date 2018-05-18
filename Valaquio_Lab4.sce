@@ -71,11 +71,16 @@ function sec = secant(x0, x1)
 endfunction
 
 function form = f(x)
-	form = ((x^2) - 2)
+	// form = ((x .^ 2) - 2)
+	form = sin(x)
 endfunction
 
 function derive = fp(x)
-	derive = (2 * x)
+	// derive = (2 * x)
+	derive = cos(x)
 endfunction
 
-disp(secant(1, 2))
+
+funcprot(0)
+disp(newton(1))
+// disp(secant(1, 2))
